@@ -1,44 +1,35 @@
+using GiselleSchroeder.Models;
+using Microsoft.AspNetCore.Mvc;
+
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
+builder.Services.AddDbContext<AppDataContext>();
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.MapGet("/", () => "AAAAA!");
 
-app.UseHttpsRedirection();
-
-var summaries = new[]
+app.MapPost("/api/funcionario/cadastrar", ([FromBody] Funcionario funcionario,  
+    [FromServices] AppDataContext ctx) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    ctx.Funcionarios.Add(funcionario);
+    ctx.SaveChanges();
+    return Results.Created("", funcionario);
+}); 
 
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/api/funcionario/listar" , ([FromServices] AppDataContext ctx) => 
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+    if(ctx.Funcionarios.Any())
+    {
+        return Results.Ok(ctx.Funcionarios.ToList());
+    }
+    return Results.NotFound();
+});
+
+/*app.MapPost("/api/folha/cadastrar", ([FromBody] Folha folha,  
+    [FromServices] AppDataContext ctx) =>
+{
+    ctx.Folhas.Add(folha);
+    ctx.SaveChanges();
+    return Results.Created("", folha);*/
+ 
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
