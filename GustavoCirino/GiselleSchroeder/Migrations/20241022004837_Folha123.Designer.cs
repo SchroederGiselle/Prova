@@ -2,6 +2,7 @@
 using GiselleSchroeder.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,22 +10,21 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GiselleSchroeder.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    partial class AppDataContextModelSnapshot : ModelSnapshot
+    [Migration("20241022004837_Folha123")]
+    partial class Folha123
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
 
             modelBuilder.Entity("GiselleSchroeder.Models.Folha", b =>
                 {
-                    b.Property<string>("valor")
+                    b.Property<string>("folhaId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ano")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("funcionarioId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("mes")
@@ -33,7 +33,10 @@ namespace GiselleSchroeder.Migrations
                     b.Property<string>("quantidade")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("valor");
+                    b.Property<string>("valor")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("folhaId");
 
                     b.ToTable("Folhas");
                 });

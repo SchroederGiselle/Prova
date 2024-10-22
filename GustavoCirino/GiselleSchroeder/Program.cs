@@ -24,12 +24,12 @@ app.MapGet("/api/funcionario/listar" , ([FromServices] AppDataContext ctx) =>
     return Results.NotFound();
 });
 
-/*app.MapPost("/api/folha/cadastrar", ([FromBody] Folha folha,  
+app.MapPost("/api/folha/cadastrar", ([FromBody] Folha folha,  
     [FromServices] AppDataContext ctx) =>
 {
     ctx.Folhas.Add(folha);
     ctx.SaveChanges();
-    return Results.Created("", folha);*/
- 
+    return Results.Created("", folha);
+});
 
 app.Run();

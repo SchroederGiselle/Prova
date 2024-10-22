@@ -11,8 +11,8 @@ POST http://localhost:5106/api/funcionario/cadastrar/
 Content-Type: application/json
 
 {
-    "nome": "Gustavo",
-    "cpf" : "123456"
+    "nome": "Gawda",
+    "cpf" : "1dawdawd"
 }
 
 ### Obtenção de todos os funcionários
@@ -21,7 +21,7 @@ GET http://localhost:5106/api/funcionario/listar
 # FOLHA ############################################
 
 ### Criação de uma nova folha
-POST http://localhost:5106/api/folha/cadastrar
+POST http://localhost:5106/api/folha/cadastrar/
 Content-Type: application/json
 
 {
